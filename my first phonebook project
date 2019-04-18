@@ -1,0 +1,81 @@
+import os
+def add_details():
+    entry=[]
+    name=str(input("enter name"))
+    no=str(input("enter contact no"))
+    entry.append(name)
+    entry.append(no)
+    return entry
+def file(list):
+    f=open("phonecontact","a")
+    f.write(list[0][0])
+    f.write(" : ")
+    f.write(list[0][1])
+    f.write("\n")
+    f.close()
+def display():
+    if os.path.isfile("phonecontact")==0:
+        print("sorry you don't have any phonecontact")
+        print("please create it")
+    elif os.stat("phonecontact").st_size==0:
+        print("phone contact is empty")
+    else:
+        o=open("phonecontact","r")
+        f=o.read()
+        print(f)
+        o.close()
+def search():
+    name=input("enter name")
+    f=open("phonecontact","r")
+    for line in f:
+        if name in line:
+            print("name is found in phonebook")
+            print(line)
+            found=True
+            break
+        else:
+            found=False
+    if found==False:
+        print("name is not found")
+def choice():
+    print(" enter 1 to add new conact in phonebook")
+    print("enter 2 to save conact in file")
+    print("enter 3 to to print phonebook file")
+    print("enter 4 to search contact from phonebook")
+    print("enter 5 to exit from menue")
+    c=int(input("enter choice"))
+    return c
+if os.path.isfile("phonecontact")==0:
+    print("sorry you dont have any contact in your phonebook")
+    print("please first create it")
+    directory=[]
+elif os.path.getsize("phonecontact")==0:
+    print("your phonebook exists but does not contain any contact,please add some contact")
+    directory=[]
+else:
+    print("you have already some contacys in your phonebook")
+    print("you can see it")
+    directory=[]
+    f=open("phonecontact","r")
+    tx=f.read()
+    print(tx)
+c=True
+while c:
+    ch=choice()
+    if ch==1:
+        directory=[]
+        e=add_details()
+        directory.append(e)
+    if ch==2:
+        file(directory)
+        print("data saved successfully")
+        del(directory)
+    if ch==3:
+        display()
+    if ch==4:
+        search()
+    if ch==5:
+        print("thankyou for using my application")
+        c=False
+    
+        
